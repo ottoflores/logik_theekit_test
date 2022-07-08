@@ -1,0 +1,66 @@
+body {
+    font-family: 'Arial'; 
+  }
+  
+  select {
+    width: 306px;
+    height: 44px;
+    font-size: 16px;
+    border: 2px solid #c7c7c7;
+    border-radius: 5px;
+    padding: 5px;
+  }
+  label{
+    font-size: 16px;
+    padding: 5px;
+    width: 150px;
+  }
+  select:focus, select:checked, input:focus {
+    border: 2px solid rgb(37 99 235);
+    border-radius: 5px;
+    outline: none;
+  } 
+
+  .theekitCustom{
+    height: 500px !important;
+  }
+  .error{
+    color: red;
+  }
+  .warm {
+    color: yellow;
+  }
+  .info{
+    color: lightblue;
+  }
+   .validation{
+    color: palevioletred;
+  }
+
+
+
+  .Overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: black ;
+    opacity: .9;
+ 
+    
+  }
+  .Modal {
+    position: absolute;
+    top: 25%;
+    left: 30%;
+    right: 30%;
+    bottom: 25%;
+   background-color: whitesmoke;
+   opacity: 1 !important;
+   border-radius: 5px;
+   border-color: whitesmoke; 
+  }
+  hr {
+    background-color: black !important;
+  }
