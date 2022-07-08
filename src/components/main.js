@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import Modal from 'react-modal'; 
-import {PDFDownloadLink,Document,Page,Text,View,Font,StyleSheet,Image,} from "@react-pdf/renderer";
+import {PDFDownloadLink,Document,Page,Text,View,StyleSheet,Image,} from "@react-pdf/renderer";
 
 const Main = () => {
   const url = "";
@@ -68,7 +68,7 @@ const Main = () => {
     fn(newField);
   };
   const updateValueLogik = async (varToUpdate) => {
-    if (varToUpdate.variableName=="")
+    if (varToUpdate.variableName==="")
       return;
     let newData = {
       fields: [
@@ -96,13 +96,13 @@ const Main = () => {
     //Fields
     for (let i = 0; i < data.fields?.length; i++) {
       let field = data.fields[i];
-      if (field.variableName == "olf1_cordageLength_m") {
+      if (field.variableName === "olf1_cordageLength_m") {
         setCordageLength((prev) => ({
           ...prev,
           value: field.value,
         }));
       }
-      if (field.variableName == "material") {
+      if (field.variableName === "material") {
         setMaterial((prev) => ({
           ...prev,
           value: field.value,
@@ -121,14 +121,14 @@ const Main = () => {
     });
     for (let i = 0; i < data.messages?.length; i++) {
       let mensaje = data.messages[i];
-      if (mensaje.target == "olf1_cordageLength_m") {
+      if (mensaje.target === "olf1_cordageLength_m") {
         setMessages((prev) => ({
           ...prev,
           cordage: mensaje.message,
           cordageClass: mensaje.type,
         }));
       }
-      if (mensaje.target == "material") {
+      if (mensaje.target === "material") {
         setMessages((prev) => ({
           ...prev,
           material: mensaje.message,
@@ -306,7 +306,7 @@ const Main = () => {
         <div className="shadow-lg" id="campos">
           <div className="columns: 1 h-20 flex justify-center">
             <h1 className="md:font-bold">CAR WHEEL</h1>
-             <img src="https://www.cognits.co/_next/static/image/assets/images/Logo/black/logo_black.e6d22562719e8f844321ede2133cb698.svg"></img> 
+             <img alt="cognits" src="https://www.cognits.co/_next/static/image/assets/images/Logo/black/logo_black.e6d22562719e8f844321ede2133cb698.svg"></img> 
           </div>
           <div className="columns: 2 h-20">
             <div>
