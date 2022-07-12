@@ -4,8 +4,8 @@ import {PDFDownloadLink,Document,Page,Text,View,StyleSheet,Image,} from "@react-
 let isLoaded = false
 const Main = () => {
   const url = "https://cognits.demo01.logik.io/api/";
-  const LogikToken ="Mxr4Of-ANJNtekJGFDl0gPXq7qaJjeO_sQ";
-  const threekitToken="54a7b86e-2d39-4f6d-8646-91c0c6e8afaa";
+  const LogikToken ="MzwwRwbL0OWCsdaHo2p2K_5rf3lQgmLnJA";
+  const threekitToken="4d4db3ad-a19e-4b56-8fbe-180093bc5aeb";
   const assetId= "a48723d2-50b2-4481-b81f-467e8309e2ca";
       
   
