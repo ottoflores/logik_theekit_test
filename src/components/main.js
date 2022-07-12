@@ -1,14 +1,14 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useCallback } from "react";
 import Modal from 'react-modal'; 
 import {PDFDownloadLink,Document,Page,Text,View,StyleSheet,Image,} from "@react-pdf/renderer";
-
+let isLoaded = false
 const Main = () => {
-  const url = "";
-  const LogikToken ="";
-  const threekitToken="";
-  const assetId= "";
+  const url = "https://cognits.demo01.logik.io/api/";
+  const LogikToken ="Mxr4Of-ANJNtekJGFDl0gPXq7qaJjeO_sQ";
+  const threekitToken="54a7b86e-2d39-4f6d-8646-91c0c6e8afaa";
+  const assetId= "a48723d2-50b2-4481-b81f-467e8309e2ca";
       
-  let loaded = false; 
+  
   Modal.setAppElement('#root');
   const [modalIsOpen, setIsOpen] = useState(false);
   const [snapshot,setSnapshot]=useState();
@@ -37,28 +37,7 @@ const Main = () => {
     cordageClass: "",
     styleClass: "",
     materialClass: "",
-  });
-
-  const postData = async function () {
-    await fetch(url, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-        authorization: "Bearer "+LogikToken,
-      },
-      body: '{\n  "sessionContext": {\n    "stateful": true\n  },\n  "partnerData": {\n    "product": {\n      "configuredProductId": "OLF003"\n    }\n  },\n  "fields": [\n    {\n      "variableName": "string",\n      "value": "string"\n    }\n  ]\n}',
-    })
-      .then((response) => response.json())
-      .then((data) => {
-        setData(data);
-      });
-  };
-  const setData = (data) => { 
-    setUUUID(data.uuid);
-    createVarObjNum(data, 5, setCordageLength);
-    createVarObjName(data, "style", setStyle);
-    createVarObjName(data, "material", setMaterial);
-  };
+  }); 
   const createVarObjName = (data, name, fn) => {
     let newField = data.fields.find((x) => x.variableName === name);
     fn(newField);
@@ -67,7 +46,8 @@ const Main = () => {
     let newField = data.fields[num];
     fn(newField);
   };
-  const updateValueLogik = async (varToUpdate) => {
+  const updateValueLogik =useCallback( async (varToUpdate) => {
+
     if (varToUpdate.variableName==="")
       return;
     let newData = {
@@ -91,7 +71,7 @@ const Main = () => {
       .then((data) => {
         updatePatchLogikResponse(data);
       });
-  };
+  },[UUUID]);
   const updatePatchLogikResponse = (data) => { 
     //Fields
     for (let i = 0; i < data.fields?.length; i++) {
@@ -259,16 +239,7 @@ const Main = () => {
       value: e.target.value,
     }));
   };
-  const initPlayer = async function () {
-    const player = await window.threekitPlayer({
-      assetId:assetId,
-      authToken: threekitToken,
-      el: document.getElementById("player-el"),
-    });
 
-    window.player = player;
-    window.configurator = await player.getConfigurator();
-  };
   function openModal() {
   
     window.player.snapshotAsync().then((value) => {
@@ -280,26 +251,56 @@ const Main = () => {
   function closeModal() {
     setIsOpen(false);
   } 
-  useEffect(() => {
-    if (!loaded) {
+  useEffect(() => {  
+    const postData = async function () {
+      await fetch(url, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          authorization: "Bearer "+LogikToken,
+        },
+        body: '{\n  "sessionContext": {\n    "stateful": true\n  },\n  "partnerData": {\n    "product": {\n      "configuredProductId": "OLF003"\n    }\n  },\n  "fields": [\n    {\n      "variableName": "string",\n      "value": "string"\n    }\n  ]\n}',
+      })
+        .then((response) => response.json())
+        .then((data) => {
+          setData(data);
+        });
+    };
+    const initPlayer = async function () {
+      const player = await window.threekitPlayer({
+        assetId:assetId,
+        authToken: threekitToken,
+        el: document.getElementById("player-el"),
+      });
+  
+      window.player = player;
+      window.configurator = await player.getConfigurator();
+    };
+    const setData = (data) => { 
+      setUUUID(data.uuid);
+      createVarObjNum(data, 5, setCordageLength);
+      createVarObjName(data, "style", setStyle);
+      createVarObjName(data, "material", setMaterial);
+    };
+    if (!isLoaded){
       postData();
-      loaded = true;
       initPlayer();
+      isLoaded=!isLoaded; 
     }
   }, []);
-  useEffect(() => {
+  useEffect(() => { 
     updateValueLogik(cordageLength);
-  }, [cordageLength]);
-  useEffect(() => {
+  }, [updateValueLogik,cordageLength]);
+  useEffect(() => { 
     window.configurator?.setConfiguration({ Style: style.value });
     updateValueLogik(style);
-  }, [style]);
-  useEffect(() => {
+  }, [updateValueLogik,style]);
+  useEffect(() => { 
     updateValueLogik(material);
     window.configurator?.setConfiguration({
       Material: { assetId: material.value },
     });
-  }, [material]); 
+  }, [updateValueLogik,material]); 
   return (
     <>
       <div className="container mx-auto px-4" id="container">
