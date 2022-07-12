@@ -5,7 +5,7 @@ let isLoaded = false
 const Main = () => {
   const url = "https://cognits.demo01.logik.io/api/";
   const LogikToken ="MzwwRwbL0OWCsdaHo2p2K_5rf3lQgmLnJA";
-  const threekitToken="d833026d-da59-4c02-850a-211f987612ff";
+  const threekitToken="4d4db3ad-a19e-4b56-8fbe-180093bc5aeb";
   const assetId= "a48723d2-50b2-4481-b81f-467e8309e2ca";
       
   
